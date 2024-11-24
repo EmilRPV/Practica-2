@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int global_var;
+int global_initialized_var = 5;
+
+void function() { 
+    // Esta es solo una función de demostración.
+    int stack_var; // Nota que esta variable tiene el mismo nombre que la de main().
+    printf("La dirección de stack_var en la función es: %p\n", (void*)&stack_var);
+}
+
+int main() {
+    int stack_var; // Mismo nombre que la variable en function()
+    static int static_initialized_var = 5;
+    static int static_var;
+    int *heap_var_ptr;
+
+    heap_var_ptr = (int *) malloc(4); // Asignación de memoria en el heap
+
+    // Estas variables están en el segmento de datos.
+    printf("La dirección de global_initialized_var es: %p\n", (void*)&global_initialized_var);
+    printf("La dirección de static_initialized_var es: %p\n\n", (void*)&static_initialized_var);
+
+    // Estas variables están en el segmento BSS.
+    printf("La dirección de static_var es: %p\n", (void*)&static_var);
+    printf("La dirección de global_var es: %p\n\n", (void*)&global_var);
+
+    // Esta variable está en el heap.
+    printf("La dirección de heap_var es: %p\n\n", (void*)heap_var_ptr);
+
+    // Estas variables están en el segmento de pila (stack).
+    printf("La dirección de stack_var en main es: %p\n", (void*)&stack_var);
+    
+    function(); // Llamada a la función que también tiene una variable stack_var
+
+    // Liberar memoria del heap.
+    free(heap_var_ptr);
+    
+    return 0;
+}
