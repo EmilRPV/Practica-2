@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>  // Para la función time()
+
+int main() {
+    int i;
+
+    // Imprimir el valor de RAND_MAX
+    printf("RAND_MAX is %u\n", RAND_MAX);
+
+    // Inicializar el generador de números aleatorios con el tiempo actual como semilla
+    srand(time(0));
+
+    // Generar y mostrar números aleatorios en el rango de 0 a RAND_MAX
+    printf("random values from 0 to RAND_MAX\n");
+    for(i = 0; i < 8; i++)
+        printf("%d\n", rand());
+
+    // Generar y mostrar números aleatorios en el rango de 1 a 20
+    printf("random values from 1 to 20\n");
+    for(i = 0; i < 8; i++)
+        printf("%d\n", (rand() % 20) + 1);
+
+    return 0;
+}
